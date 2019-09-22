@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+    <style>
+        #video-player {
+            border: 2px solid #8ac6d1;
+            width: 640px;
+            height: 380px;
+            background-size: 3200px 1900px;
+            background-position: 0% 0%;
+            cursor: pointer;
+            margin: auto;
+            position: relative;
+        }
+
+        #progress-bar-container {
+            width: 640px;
+            height: 20px;
+            border: 2px solid #8ac6d1;
+            border-top: none;
+            margin: auto;
+            cursor: pointer;
+        }
+
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            margin-right: auto;
+            background-color:#bbded6;
+        }
+
+        #play-pause-button-container {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.5s, opacity 0.5s linear;
+        }
+
+        #video-player:hover #play-pause-button-container {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .fas {
+            position: absolute;
+            top: 50%;
+            right: 40%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+        }
+
+        #pause-button {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="video-player-container" >
+        <div id="video-player" onclick="togglePlay()">
+            <div id="play-pause-button-container" >
+                <i id="play-button" class="fas fa-play fa-4x"></i>
+                <i id="pause-button" class="fas fa-pause fa-4x"></i>
+            </div>
+        </div>
+        <div id="progress-bar-container">
+            <div id="progress-bar"></div>
+        </div>
+        
+    </div>
+    <script src="frame-player.js"></script>
+    <script>
+        const player = new FramePlayer(document.querySelector("#video-player"))
+        let isPlaying= false
+        function togglePlay() {
+            isPlaying = !isPlaying
+            if(isPlaying) {
+                player.play()
+            } else {
+                player.pause()
+            }
+        }
+        player.progressBarContainer.addEventListener("click", function(event) {
+            player.seekPosition(this, event)
+        })
+    </script>
+</body>
+</html>
+
+
